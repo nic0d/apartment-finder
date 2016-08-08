@@ -4,8 +4,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, Float, Boolean
 from sqlalchemy.orm import sessionmaker
 from dateutil.parser import parse
-from util import post_listing_to_slack, find_points_of_interest
+from util import post_listing_to_matrix, post_listing_to_slack, find_points_of_interest
 from slackclient import SlackClient
+from matrix_client.client import MatrixClient
 import time
 import settings
 
@@ -117,6 +118,42 @@ def do_scrape():
     # Create a slack client.
     sc = SlackClient(settings.SLACK_TOKEN)
 
+
+    matrix_url = settings.MATRIX_URL
+    matrix_user = settings.MATRIX_USER
+    matrix_password = settings.MATRIX_PASSWORD
+    matrix_room_id = settings.MATRIX_ROOM_ID
+
+    print('Matrix URL: ',matrix_url)
+    # Create a matrix client
+    client = MatrixClient(matrix_url)
+
+    try:
+        client.login_with_password(matrix_user,matrix_password)
+    except MatrixRequestError as e:
+        print(e)
+        if e.code == 403:
+            print("Bad username or password.")
+            sys.exit(4)
+        else:
+            print("Check your sever details are correct.")
+            sys.exit(2)
+    except MissingSchema as e:
+        print("Bad URL format.")
+        print(e)
+        sys.exit(3)
+
+    try:
+        room = client.join_room(matrix_room_id) # id of 'housing' room
+    except MatrixRequestError as e:
+        print(e)
+        if e.code == 400:
+            print("Room ID/Alias in the wrong format")
+            sys.exit(11)
+        else:
+            print("Couldn't find room.")
+            sys.exit(12)
+
     # Get all the results from craigslist.
     all_results = []
     for area in settings.AREAS:
@@ -127,3 +164,4 @@ def do_scrape():
     # Post each result to slack.
     for result in all_results:
         post_listing_to_slack(sc, result)
+        post_listing_to_matrix(room, result)

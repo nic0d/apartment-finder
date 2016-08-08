@@ -3,3 +3,4 @@ sqlalchemy
 python-dateutil
 ipython
 slackclient
+-e git://github.com/matrix-org/matrix-python-sdk#egg=matrix_client

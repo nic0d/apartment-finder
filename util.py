@@ -29,6 +29,18 @@ def in_box(coords, box):
         return True
     return False
 
+def post_listing_to_matrix(room, listing):
+    """
+    Posts the listing to matrix.
+    :param mc: A matrix client.
+    :param listing: A record of the listing.
+    """
+    desc = "{0} | {1} | {2} | {3} | <{4}>".format(listing["area"], listing["price"], listing["bart_dist"], listing["name"], listing["url"])
+    #push to matrix
+    print("Pushed: %s",desc)
+    room.send_text(desc)
+
+
 def post_listing_to_slack(sc, listing):
     """
     Posts the listing to slack.
