@@ -1,7 +1,7 @@
 Apartment finder
 -------------------
 
-UPDATE: a light modification to enable the support of Matrix.org server. Thanks to Vik Paruchuri and authors of Matrix python SDK for their great work!
+__UPDATE: a light modification to enable the support of Matrix.org server. Thanks to Vik Paruchuri and authors of Matrix python SDK for their great work!__
 
 This repo contains the code for a bot that will scrape Craigslist for real-time listings matching specific criteria, then alert you in Slack.  This will let you quickly see the best new listings, and contact the owners.  You can adjust the settings to change your price range, what neighborhoods you want to look in, and what transit stations and other points of interest you'd like to be close to.
 
@@ -11,12 +11,12 @@ It's recommended to follow the Docker installation and usage instructions.
 
 Settings
 --------------------
-UPDATE for matrix support
+__UPDATE for matrix support__
 
-* `MATRIX_URL` -- url of the server
-* `MATRIX_USER` -- user account used to publish
-* `MATRIX_PASSWORD` -- password of the user
-* `MATRIX_ROOM_ID` -- room id in which message will be send (eg: !sdfjhscsdfm:matrix.org)
+* __`MATRIX_URL` -- url of the server__
+* __`MATRIX_USER` -- user account used to publish__
+* __`MATRIX_PASSWORD` -- password of the user__
+* __`MATRIX_ROOM_ID` -- room id in which message will be send (eg: !sdfjhscsdfm:matrix.org)__
 
 Look in `settings.py` for a full list of all the configuration options.  Here's a high level overview:
 
@@ -40,8 +40,8 @@ Before using this bot, you'll need a Slack team, a channel for the bot to post i
 * Create a channel for the listings to be posted into.  [Here's](https://get.slack.help/hc/en-us/articles/201402297-Creating-a-channel) help on this.  It's suggested to use `#housing` as the name of the channel.
 * Get a Slack API token, which you can do [here](https://api.slack.com/docs/oauth-test-tokens).  [Here's](https://get.slack.help/hc/en-us/articles/215770388-Creating-and-regenerating-API-tokens) more information on the process.
 
-* Create a room in which message will be published (keep the room id (see at the end of the URL)).
-* Create a Matrix account in a server, and invite it in the room.
+* __Create a room in which message will be published (keep the room id (see at the end of the URL)).__
+* __Create a Matrix account in a server, and invite it in the room.__
 
 Configuration
 --------------------
@@ -69,7 +69,7 @@ Configuration
 * Create a file called `private.py` in this folder.
     * Add a value called `SLACK_TOKEN` that contains your Slack API token.
     * Add any other values you want to `private.py`.
-    * For matrix support, add MATRIX_URL, MATRIX_USER, MATRIX_PASSWORD, and MATRIX_ROOM_ID
+    * __For matrix support, add MATRIX_URL, MATRIX_USER, MATRIX_PASSWORD, and MATRIX_ROOM_ID__
 
 Installation + Usage
 --------------------
